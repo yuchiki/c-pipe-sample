@@ -47,6 +47,8 @@ void print_numbers_pretty(int length, int numbers[]) {
   printf("以上%d件のデータをsortしました。\n", length);
 }
 
+int is_stdout_tty() { return isatty(fileno(stdout)); }
+
 int main(int argc, char *argv[]) {
   int numbers[MAX_LENGTH];
   int length = argc - 1;
@@ -55,7 +57,7 @@ int main(int argc, char *argv[]) {
   parse_numbers(length, argv + 1, numbers);
   sort(length, numbers);
 
-  if (isatty(fileno(stdout))) {
+  if (is_stdout_tty()) {
     print_numbers_pretty(length, numbers);
   } else {
     print_raw_numbers(length, numbers);
